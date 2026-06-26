@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="宁波微流生物科技有限公司 — 专注LAMP/qPCR/ePOCT核酸即时检测技术，提供手持式核酸检测仪、支原体/沙门氏菌快速检测试剂盒、核酸提取整体解决方案。">
+<title>宁波微流生物科技 | LAMP · qPCR · ePOCT 核酸即时检测</title>
+<style>
+/* ===== Reset & Variables ===== */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --primary:#0050b3;
+  --primary-dark:#003380;
+  --primary-light:#1677ff;
+  --accent:#00c2a0;
+  --accent-light:#7fffea;
+  --text:#1a2233;
+  --text-mid:#3a4a6a;
+  --text-light:#6b7a99;
+  --bg:#f5f7fa;
+  --bg-white:#ffffff;
+  --bg-light:#e8f4fd;
+  --border:#c8daf5;
+  --shadow-sm:0 1px 3px rgba(0,60,120,.08);
+  --shadow-md:0 4px 16px rgba(0,60,120,.10);
+  --shadow-lg:0 8px 32px rgba(0,60,120,.14);
+  --radius:12px;
+  --max-width:1200px;
+}
+html{scroll-behavior:smooth}
+body{
+  font-family:"PingFang SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
+  font-size:15px;line-height:1.7;color:var(--text);background:var(--bg);
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ===== Navbar ===== */
+.navbar{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  background:rgba(255,255,255,.95);backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(0,80,179,.08);
+  transition:box-shadow .3s;
+}
+.navbar.scrolled{box-shadow:var(--shadow-md)}
+.nav-inner{
+  max-width:var(--max-width);margin:0 auto;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 24px;height:64px;
+}
+.nav-logo{
+  display:flex;align-items:center;gap:10px;
+  font-size:17px;font-weight:800;color:var(--primary-dark);
+  letter-spacing:.5px;text-decoration:none;
+}
+.nav-logo-img{height:36px;width:auto;object-fit:contain}
+.nav-links{display:flex;gap:32px;list-style:none;align-items:center}
+.nav-links a{
+  text-decoration:none;font-size:14px;font-weight:500;
+  color:var(--text-mid);transition:color .2s;position:relative;
+  padding:4px 0;
+}
+.nav-links a::after{
+  content:'';position:absolute;bottom:-2px;left:0;right:0;
+  height:2px;background:var(--accent);transform:scaleX(0);
+  transition:transform .25s ease;transform-origin:right;
+}
+.nav-links a:hover{color:var(--primary)}
+.nav-links a:hover::after{transform:scaleX(1);transform-origin:left}
+.nav-cta{
+  background:var(--primary);color:#fff!important;
+  padding:8px 20px!important;border-radius:20px;
+  font-weight:600!important;transition:background .25s,transform .2s;
+}
+.nav-cta:hover{background:var(--primary-light);transform:translateY(-1px)}
+.nav-cta::after{display:none!important}
+.menu-toggle{
+  display:none;background:none;border:none;cursor:pointer;
+  flex-direction:column;gap:5px;padding:8px;
+}
+.menu-toggle span{
+  display:block;width:24px;height:2px;
+  background:var(--primary-dark);border-radius:2px;transition:.3s;
+}
+
+/* ===== Hero ===== */
+.hero{
+  min-height:100vh;display:flex;align-items:center;
+  background:linear-gradient(155deg,#003380 0%,#0050b3 35%,#0079d3 60%,#00c2a0 100%);
+  position:relative;overflow:hidden;padding:100px 24px 80px;
+}
+.hero::before{
+  content:'';position:absolute;top:-200px;right:-200px;
+  width:600px;height:600px;border-radius:50%;
+  background:radial-gradient(circle,rgba(0,194,160,.15),transparent 70%);
+  animation:pulse 6s ease-in-out infinite;
+}
+.hero::after{
+  content:'';position:absolute;bottom:-100px;left:-100px;
+  width:400px;height:400px;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,255,255,.05),transparent 70%);
+  animation:pulse 8s ease-in-out infinite reverse;
+}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:.6}50%{transform:scale(1.15);opacity:1}}
+.hero-inner{
+  max-width:var(--max-width);margin:0 auto;width:100%;
+  position:relative;z-index:2;
+  display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;
+}
+.hero-content{color:#fff}
+.hero-badge{
+  display:inline-block;background:rgba(0,194,160,.2);
+  border:1px solid rgba(0,194,160,.4);color:var(--accent-light);
+  padding:6px 20px;border-radius:20px;font-size:13px;font-weight:600;
+  letter-spacing:1.5px;margin-bottom:24px;text-transform:uppercase;
+}
+.hero h1{
+  font-size:clamp(28px,5vw,48px);font-weight:900;
+  line-height:1.18;margin-bottom:18px;letter-spacing:.5px;
+}
+.hero h1 span{color:var(--accent-light)}
+.hero-tagline{
+  font-size:17px;color:rgba(255,255,255,.75);
+  line-height:1.75;margin-bottom:36px;max-width:480px;
+}
+.hero-stats{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:16px;
+}
+.hero-stat{
+  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);
+  border-radius:12px;padding:18px 14px;text-align:center;
+  backdrop-filter:blur(4px);transition:transform .3s,background .3s;
+}
+.hero-stat:hover{background:rgba(255,255,255,.14);transform:translateY(-3px)}
+.hero-stat-num{font-size:30px;font-weight:900;color:var(--accent-light);line-height:1}
+.hero-stat-unit{font-size:11px;color:rgba(255,255,255,.55);margin-top:4px}
+.hero-visual{
+  display:flex;align-items:center;justify-content:center;position:relative;
+}
+.hero-visual img{
+  max-width:100%;max-height:400px;object-fit:contain;
+  filter:drop-shadow(0 20px 50px rgba(0,194,160,.35)) drop-shadow(0 10px 20px rgba(0,0,0,.3));
+  animation:floatDevice 4s ease-in-out infinite;
+}
+@keyframes floatDevice{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+
+/* ===== Section Common ===== */
+.section{padding:90px 24px}
+.section-inner{max-width:var(--max-width);margin:0 auto}
+.section-label{
+  font-size:12px;font-weight:700;letter-spacing:2px;
+  color:var(--accent);text-transform:uppercase;margin-bottom:8px;
+}
+.section-title{
+  font-size:clamp(22px,3.5vw,34px);font-weight:800;
+  color:var(--primary-dark);margin-bottom:16px;letter-spacing:.5px;
+}
+.section-desc{
+  font-size:16px;color:var(--text-mid);max-width:640px;line-height:1.8;
+  margin-bottom:48px;
+}
+
+/* ===== About ===== */
+.about{background:var(--bg-white)}
+.about-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;
+}
+.about-text p{
+  font-size:15px;color:var(--text-mid);line-height:1.9;margin-bottom:20px;
+}
+.about-text strong{color:var(--primary);font-weight:700}
+.about-cards{
+  display:grid;grid-template-columns:1fr 1fr;gap:16px;
+}
+.acard{
+  background:linear-gradient(135deg,var(--bg-light),#f0fffe);
+  border:1px solid var(--border);border-radius:var(--radius);
+  padding:24px 20px;transition:transform .3s,box-shadow .3s;
+}
+.acard:hover{transform:translateY(-3px);box-shadow:var(--shadow-md)}
+.acard-icon{font-size:28px;margin-bottom:10px;display:block}
+.acard-title{font-size:14px;font-weight:700;color:var(--primary-dark);margin-bottom:6px}
+.acard-desc{font-size:13px;color:var(--text-mid);line-height:1.7}
+
+/* ===== Products ===== */
+.products{background:var(--bg)}
+.product-tabs{
+  display:flex;gap:0;margin-bottom:40px;border-radius:var(--radius);
+  overflow:hidden;box-shadow:var(--shadow-sm);flex-wrap:wrap;
+}
+.product-tab{
+  padding:13px 24px;font-size:14px;font-weight:600;cursor:pointer;
+  background:var(--bg-white);color:var(--text-mid);border:none;
+  transition:all .25s;border-bottom:2px solid transparent;flex:1;min-width:100px;
+  text-align:center;white-space:nowrap;
+}
+.product-tab:hover{color:var(--primary);background:#f8fafe}
+.product-tab.active{
+  color:#fff;background:var(--primary);border-bottom-color:var(--accent);
+}
+.product-panel{display:none}
+.product-panel.active{display:block}
+
+/* Product hero card */
+.phero{
+  background:linear-gradient(135deg,var(--bg-light),#f0fffe);
+  border:1px solid var(--border);border-radius:var(--radius);
+  padding:36px 40px;display:grid;grid-template-columns:1.2fr 1fr;
+  gap:40px;align-items:center;margin-bottom:30px;
+}
+.phero-tag{
+  display:inline-block;background:rgba(0,194,160,.15);
+  border:1px solid rgba(0,194,160,.35);color:#059669;
+  padding:5px 16px;border-radius:20px;font-size:12px;font-weight:700;
+  letter-spacing:1px;margin-bottom:14px;
+}
+.phero h3{font-size:26px;font-weight:900;color:var(--primary-dark);margin-bottom:10px;letter-spacing:.5px}
+.phero-sub{font-size:14px;color:var(--text-light);margin-bottom:16px}
+.phero-desc{font-size:14.5px;color:var(--text-mid);line-height:1.85;margin-bottom:20px}
+.phero-desc strong{color:var(--primary);font-weight:700}
+.phero-metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:12px}
+.phero-metric{
+  background:var(--bg-white);border-radius:10px;
+  padding:16px 12px;text-align:center;box-shadow:var(--shadow-sm);
+}
+.phero-metric .num{font-size:24px;font-weight:900;color:var(--primary);line-height:1}
+.phero-metric .unit{font-size:11px;color:var(--text-light);margin-top:2px}
+.phero-metric .label{font-size:11px;color:var(--text-mid);margin-top:4px;font-weight:500}
+.phero-visual{
+  display:flex;align-items:center;justify-content:center;
+  background:var(--bg-white);border-radius:var(--radius);
+  padding:20px;box-shadow:var(--shadow-sm);overflow:hidden;
+}
+.phero-visual img{max-width:100%;max-height:300px;object-fit:contain}
+
+/* Feature grid */
+.fgrid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:18px;margin-bottom:30px;
+}
+.fcard{
+  background:var(--bg-white);border-radius:var(--radius);
+  padding:24px 22px;box-shadow:var(--shadow-sm);
+  transition:transform .3s,box-shadow .3s;
+  border-left:4px solid var(--primary);
+}
+.fcard.accent{border-left-color:var(--accent)}
+.fcard:hover{transform:translateY(-3px);box-shadow:var(--shadow-md)}
+.fcard-icon{font-size:26px;margin-bottom:10px;display:block}
+.fcard h4{font-size:15px;font-weight:700;color:var(--primary-dark);margin-bottom:7px}
+.fcard p{font-size:13.5px;color:var(--text-mid);line-height:1.7}
+
+/* Spec table */
+.spectable{
+  width:100%;border-collapse:collapse;margin-bottom:24px;
+  border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-sm);
+}
+.spectable th{
+  background:linear-gradient(90deg,var(--primary-dark),var(--primary));
+  color:#fff;padding:12px 18px;font-size:13px;font-weight:700;text-align:left;
+}
+.spectable td{
+  padding:11px 18px;font-size:13.5px;color:var(--text-mid);
+  border-bottom:1px solid #e8effc;background:var(--bg-white);
+}
+.spectable tr:nth-child(even) td{background:#f5f8ff}
+.spectable tr:last-child td{border-bottom:none}
+.spectable td:first-child{font-weight:600;color:var(--text);width:180px}
+.spectable .hl{color:var(--primary);font-weight:700}
+
+/* Scenario grid */
+.sgrid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:14px;
+}
+.scard{
+  background:var(--bg-white);border-radius:var(--radius);
+  padding:22px 20px;box-shadow:var(--shadow-sm);
+  display:flex;gap:16px;align-items:flex-start;
+  transition:transform .3s,box-shadow .3s;
+}
+.scard:hover{transform:translateY(-2px);box-shadow:var(--shadow-md)}
+.scard-icon{font-size:30px;flex-shrink:0}
+.scard h5{font-size:14px;font-weight:700;color:var(--primary-dark);margin-bottom:5px}
+.scard p{font-size:13px;color:var(--text-mid);line-height:1.65}
+
+/* Kit sub-product cards */
+.kitgrid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));
+  gap:22px;margin-bottom:20px;
+}
+.kitcard{
+  background:var(--bg-white);border-radius:var(--radius);
+  overflow:hidden;box-shadow:var(--shadow-sm);
+  transition:transform .3s,box-shadow .3s;
+}
+.kitcard:hover{transform:translateY(-3px);box-shadow:var(--shadow-md)}
+.kitcard-img{
+  width:100%;height:200px;object-fit:contain;
+  background:linear-gradient(135deg,#f0f5ff,#e8fef8);
+  padding:16px;
+}
+.kitcard-img-wrap{
+  background:linear-gradient(135deg,#f0f5ff,#e8fef8);
+  padding:16px;display:flex;align-items:center;justify-content:center;
+}
+.kitcard-header{
+  padding:20px 24px;color:#fff;
+}
+.kitcard-header.blue{background:linear-gradient(135deg,var(--primary-dark),var(--primary))}
+.kitcard-header.teal{background:linear-gradient(135deg,#0d7a6e,var(--accent))}
+.kitcard-header.amber{background:linear-gradient(135deg,#7a4e0d,#d97706)}
+.kitcard-header h4{font-size:17px;font-weight:800;margin-bottom:4px}
+.kitcard-header .model{font-size:12px;opacity:.75;letter-spacing:.5px}
+.kitcard-body{padding:20px 24px}
+.kitcard-body .row{display:flex;gap:8px;margin-bottom:7px;font-size:13px;color:var(--text-mid)}
+.kitcard-body .row strong{color:var(--text);min-width:56px;flex-shrink:0}
+.kitcard-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:12px}
+.kitcard-tag{
+  background:var(--bg-light);color:var(--primary);border-radius:4px;
+  padding:3px 10px;font-size:11px;font-weight:600;
+}
+
+/* Star / Flagship product highlight */
+.star-strip{
+  background:linear-gradient(135deg,var(--accent),#059669);
+  color:#fff;padding:14px 24px;border-radius:var(--radius);
+  font-size:14px;font-weight:600;margin-bottom:24px;
+  text-align:center;box-shadow:var(--shadow-md);
+  line-height:1.6;
+}
+.star-strip strong{font-size:18px;font-weight:900;letter-spacing:.5px}
+.star-strip em{font-style:normal;opacity:.85;font-size:13px}
+.lod-big{
+  color:#fff!important;background:linear-gradient(135deg,var(--accent),#059669);
+  padding:2px 10px;border-radius:6px;
+}
+.lod-metric{
+  border:2px solid var(--accent);position:relative;overflow:visible;
+}
+.lod-metric .num{color:var(--accent)!important;font-size:28px}
+.lod-metric::after{
+  content:'药典等效';position:absolute;top:-10px;right:-10px;
+  background:var(--accent);color:#fff;font-size:9px;font-weight:700;
+  padding:2px 8px;border-radius:4px;white-space:nowrap;
+}
+.app-highlight{
+  background:linear-gradient(135deg,#f0fffe,var(--bg-light));
+  border:2px solid var(--accent);border-radius:var(--radius);
+  padding:28px;margin-bottom:24px;
+  display:flex;gap:24px;align-items:center;
+}
+.app-highlight-icon{font-size:36px;flex-shrink:0}
+.app-highlight h4{font-size:16px;font-weight:700;color:var(--primary-dark);margin-bottom:8px}
+.app-highlight p{font-size:14px;color:var(--text-mid);line-height:1.8}
+.app-highlight .app-tag{
+  display:inline-block;background:var(--accent);color:#fff;
+  padding:4px 12px;border-radius:6px;font-size:12px;font-weight:700;
+  margin-right:8px;
+}
+
+/* ===== Contact ===== */
+.contact{background:var(--bg-white)}
+.contact-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:start;
+}
+.contact-info-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:28px;
+}
+.contact-card{
+  background:var(--bg);border-radius:var(--radius);
+  padding:20px;transition:transform .3s,box-shadow .3s;
+}
+.contact-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-sm)}
+.contact-card-icon{font-size:24px;margin-bottom:8px;display:block}
+.contact-card-label{font-size:12px;color:var(--text-light);margin-bottom:2px;font-weight:600}
+.contact-card-value{font-size:14px;color:var(--text);font-weight:600}
+.contact-form{
+  background:linear-gradient(135deg,var(--bg-light),#f0fffe);
+  border-radius:var(--radius);padding:36px 32px;border:1px solid var(--border);
+}
+.contact-form h4{font-size:20px;font-weight:800;color:var(--primary-dark);margin-bottom:24px}
+.form-group{margin-bottom:18px}
+.form-group label{
+  display:block;font-size:13px;font-weight:600;color:var(--text-mid);margin-bottom:6px;
+}
+.form-group input,.form-group textarea,.form-group select{
+  width:100%;padding:12px 16px;border:1px solid var(--border);
+  border-radius:8px;font-size:14px;font-family:inherit;color:var(--text);
+  background:var(--bg-white);transition:border-color .25s,box-shadow .25s;
+}
+.form-group input:focus,.form-group textarea:focus,.form-group select:focus{
+  outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(0,80,179,.1);
+}
+.form-group textarea{resize:vertical;min-height:100px}
+.form-submit{
+  width:100%;padding:14px;font-size:15px;font-weight:700;color:#fff;
+  background:linear-gradient(135deg,var(--primary),var(--primary-light));
+  border:none;border-radius:8px;cursor:pointer;
+  transition:transform .2s,box-shadow .2s,opacity .2s;
+}
+.form-submit:hover{transform:translateY(-1px);box-shadow:0 4px 16px rgba(0,80,179,.35)}
+.form-submit:active{transform:translateY(0)}
+
+/* ===== Footer ===== */
+.footer{
+  background:linear-gradient(135deg,#0a1a3a,#003380);
+  color:rgba(255,255,255,.6);padding:48px 24px 24px;
+}
+.footer-inner{max-width:var(--max-width);margin:0 auto}
+.footer-grid{
+  display:grid;grid-template-columns:2fr 1fr 1fr 1fr;
+  gap:40px;margin-bottom:36px;
+}
+.footer-brand h3{color:#fff;font-size:18px;font-weight:800;margin-bottom:10px;letter-spacing:.5px}
+.footer-brand p{font-size:13px;line-height:1.8;max-width:300px}
+.footer-col h4{color:#fff;font-size:14px;font-weight:700;margin-bottom:14px}
+.footer-col ul{list-style:none}
+.footer-col li{margin-bottom:8px}
+.footer-col a{color:rgba(255,255,255,.55);font-size:13px;text-decoration:none;transition:color .2s}
+.footer-col a:hover{color:var(--accent-light)}
+.footer-bottom{
+  border-top:1px solid rgba(255,255,255,.1);
+  padding-top:20px;display:flex;justify-content:space-between;
+  font-size:12px;flex-wrap:wrap;gap:10px;
+}
+
+/* ===== Scroll to top ===== */
+.scroll-top{
+  position:fixed;bottom:30px;right:30px;z-index:999;
+  width:44px;height:44px;border-radius:50%;
+  background:var(--primary);color:#fff;border:none;
+  font-size:20px;cursor:pointer;box-shadow:var(--shadow-md);
+  transition:transform .3s,opacity .3s;opacity:0;pointer-events:none;
+}
+.scroll-top.visible{opacity:1;pointer-events:auto}
+.scroll-top:hover{transform:translateY(-3px)}
+
+/* ===== Responsive ===== */
+@media(max-width:900px){
+  .hero-inner{grid-template-columns:1fr;gap:40px}
+  .hero-visual{display:none}
+  .about-grid{grid-template-columns:1fr;gap:36px}
+  .contact-grid{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr 1fr}
+  .phero{grid-template-columns:1fr;padding:28px 24px}
+  .nav-links{display:none}
+  .menu-toggle{display:flex}
+  .nav-links.open{
+    display:flex;flex-direction:column;position:absolute;
+    top:64px;left:0;right:0;background:var(--bg-white);
+    padding:20px 24px;gap:16px;box-shadow:var(--shadow-md);
+  }
+  .nav-links.open .nav-cta{text-align:center}
+  .about-cards{grid-template-columns:1fr}
+  .contact-info-grid{grid-template-columns:1fr}
+  .phero-visual{display:none}
+}
+@media(max-width:600px){
+  .footer-grid{grid-template-columns:1fr}
+  .kitgrid{grid-template-columns:1fr}
+  .fgrid{grid-template-columns:1fr}
+  .hero-stats{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- ===== Navbar ===== -->
+<nav class="navbar" id="navbar">
+  <div class="nav-inner">
+    <a href="#home" class="nav-logo">
+      <img src="images/logo.png" alt="宁波微流生物科技" class="nav-logo-img">
+      宁波微流生物科技
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#home">首页</a></li>
+      <li><a href="#about">关于我们</a></li>
+      <li><a href="#products">产品服务</a></li>
+      <li><a href="#contact">联系我们</a></li>
+      <li><a href="#contact" class="nav-cta">获取报价</a></li>
+    </ul>
+    <button class="menu-toggle" id="menuToggle" aria-label="菜单">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ===== Hero ===== -->
+<section class="hero" id="home">
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="hero-badge">LAMP · qPCR · ePOCT</div>
+      <h1>让精准核酸检测<br><span>触手可及</span></h1>
+      <p class="hero-tagline">
+        宁波微流生物科技专注于核酸即时检测（POCT）技术研发与应用，以电化学检测、等温扩增和qPCR为核心平台，为全球客户提供从样本到结果的一站式分子诊断解决方案。
+      </p>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="hero-stat-num">10<span style="font-size:14px">min</span></div>
+          <div class="hero-stat-unit">最快出结果</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">10<span style="font-size:14px">copies</span></div>
+          <div class="hero-stat-unit">检测灵敏度</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">4</div>
+          <div class="hero-stat-unit">核心技术平台</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <img src="images/epoct.png" alt="ePOCT 手持式核酸检测仪">
+    </div>
+  </div>
+</section>
+
+<!-- ===== About ===== -->
+<section class="section about" id="about">
+  <div class="section-inner">
+    <div class="section-label">About Us</div>
+    <h2 class="section-title">关于宁波微流</h2>
+    <p class="section-desc">以生物集成芯片与电化学传感技术为基石，重新定义核酸检测的速度、精度与可及性。</p>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>
+          宁波微流生物科技有限公司坐落于<strong>宁波市镇海区启迪科技园</strong>，是一家集研发、生产、销售于一体的高科技企业。公司聚焦<strong>核酸即时检测（POCT）</strong>领域，自主掌握了<strong>LAMP等温扩增</strong>、<strong>qPCR荧光定量</strong>、<strong>电化学传感检测（ePOCT）</strong>以及<strong>核酸快速提取</strong>四大核心技术平台。
+        </p>
+        <p>
+          公司自主研发的<strong>ePOCT电化学检测平台</strong>，采用生物集成芯片技术，将传统qPCR检测灵敏度浓缩至手机大小的手持设备中，最快<strong>10分钟</strong>即可完成从样本加入到数字结果输出的全流程，检测灵敏度达到<strong>10 copies/Test</strong>，特异性<strong>≥99.9%</strong>。
+        </p>
+        <p>
+          我们为制药企业、细胞治疗、科研院所、基层医疗、食品安全及动物疫病防控等领域提供全场景分子诊断产品与技术服务，致力于让精准核酸检测走出实验室，进入每一个需要它的场景。
+        </p>
+      </div>
+      <div class="about-cards">
+        <div class="acard">
+          <span class="acard-icon">🔬</span>
+          <div class="acard-title">核心技术自主可控</div>
+          <div class="acard-desc">生物集成芯片、3D石墨烯传感、电化学检测、多重LAMP引物设计全链条自研</div>
+        </div>
+        <div class="acard">
+          <span class="acard-icon">🏭</span>
+          <div class="acard-title">研发生产一体化</div>
+          <div class="acard-desc">从原料筛选到成品出库全流程质控，满足GMP合规与规模化供应需求</div>
+        </div>
+        <div class="acard">
+          <span class="acard-icon">🌍</span>
+          <div class="acard-title">产品远销全球</div>
+          <div class="acard-desc">客户覆盖科研、制药、食品安全、动物防疫等领域，出口多个国家和地区</div>
+        </div>
+        <div class="acard">
+          <span class="acard-icon">🎯</span>
+          <div class="acard-title">专业服务保障</div>
+          <div class="acard-desc">从方法验证到方案落地，专属工程师全程支持，提供试用评估与操作培训</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Products ===== -->
+<section class="section products" id="products">
+  <div class="section-inner">
+    <div class="section-label">Products & Services</div>
+    <h2 class="section-title">产品服务体系</h2>
+    <p class="section-desc">覆盖核酸提取、等温扩增、荧光定量、电化学即时检测四大技术路线，为客户提供全场景分子诊断整体解决方案。</p>
+
+    <!-- Flagship product highlight strip -->
+    <div class="star-strip">
+      🏆 旗舰推荐：支原体 LAMP <strong>荧光探针法</strong>（WLS-M-FP2）— 检测下限 <strong>10 CFU/mL</strong>，达中国药典（培养法）灵敏度标准 <em>| 适用于细胞治疗产品最终放行检测，替代28天培养法</em>
+    </div>
+
+    <!-- Product Tabs -->
+    <div class="product-tabs">
+      <button class="product-tab active" data-tab="tab-epoct">⚡ ePOCT 电化学平台</button>
+      <button class="product-tab" data-tab="tab-lamp">🧬 LAMP 等温扩增</button>
+      <button class="product-tab" data-tab="tab-qpcr">📊 qPCR 荧光定量</button>
+      <button class="product-tab" data-tab="tab-extract">🧪 核酸提取方案</button>
+    </div>
+
+    <!-- Tab: ePOCT -->
+    <div class="product-panel active" id="tab-epoct">
+      <div class="phero">
+        <div>
+          <div class="phero-tag">⚡ 电化学 · 核酸等温扩增 · 生物集成芯片</div>
+          <h3>ePOCT 电化学检测平台</h3>
+          <p class="phero-sub">手持式分钟级核酸检测仪 — 型号 ePOCT E1</p>
+          <p class="phero-desc">
+            ePOCT 基于<strong>生物集成芯片</strong>（集成电路 × 微流控 × MEMS传感器），采用<strong>电化学检测方法</strong>——以电流/阻抗信号替代传统荧光信号，在等温条件下完成核酸扩增，无需精密光学系统。<strong>最快10分钟</strong>完成从样本加入到数字结果输出的全流程。
+          </p>
+          <div class="phero-metrics">
+            <div class="phero-metric"><div class="num">10<span style="font-size:12px"> min</span></div><div class="unit">最快出结果</div></div>
+            <div class="phero-metric"><div class="num">10</div><div class="unit">copies/Test</div><div class="label">检测下限</div></div>
+            <div class="phero-metric"><div class="num">4</div><div class="unit">通道</div><div class="label">独立反应腔</div></div>
+            <div class="phero-metric"><div class="num">≥99.9</div><div class="unit">%</div><div class="label">特异性</div></div>
+          </div>
+        </div>
+        <div class="phero-visual">
+          <img src="images/epoct.png" alt="ePOCT E1 手持式核酸检测仪">
+        </div>
+      </div>
+
+      <h4 style="font-size:18px;font-weight:700;color:var(--primary-dark);margin-bottom:16px">仪器规格参数</h4>
+      <table class="spectable">
+        <thead><tr><th>参数项目</th><th>ePOCT E1 详细参数</th></tr></thead>
+        <tbody>
+          <tr><td>检测技术</td><td class="hl">核酸等温扩增 + 电化学检测（LAMP / RPA / RCA）</td></tr>
+          <tr><td>处理样本</td><td>拭子、唾液、粪便、血液等各类样本，快速前处理</td></tr>
+          <tr><td>通道数量</td><td class="hl">4个独立反应腔体</td></tr>
+          <tr><td>反应时间</td><td class="hl">最快10分钟，常规10-30分钟</td></tr>
+          <tr><td>仪器尺寸</td><td>143 × 80 × 21 mm（手持便携，约200g）</td></tr>
+          <tr><td>电源接口</td><td>TYPE-C 接口，DC 5V 2A</td></tr>
+          <tr><td>数据传输</td><td>蓝牙 / Wi-Fi，支持手机、PAD实时连接</td></tr>
+          <tr><td>防污染设计</td><td>一次性全密封芯片，无交叉污染风险</td></tr>
+          <tr><td>储存条件</td><td>常温储存，冻干微球全封闭入芯片，有效期24个月</td></tr>
+        </tbody>
+      </table>
+
+      <div class="fgrid">
+        <div class="fcard"><span class="fcard-icon">⚡</span><h4>超快速 · 分钟级出结果</h4><p>最快10分钟完成核酸扩增到数字输出，相比传统qPCR（2-4h）效率提升100倍以上。</p></div>
+        <div class="fcard accent"><span class="fcard-icon">🎯</span><h4>高灵敏度 · 媲美金标准</h4><p>检测灵敏度10-100 copies/Test，媲美金标准qPCR，早期感染不漏检。</p></div>
+        <div class="fcard"><span class="fcard-icon">🔒</span><h4>高特异性 · 杜绝假阳性</h4><p>特异性≥99.9%，经1000+交叉病原体验证，结果高度可信。</p></div>
+        <div class="fcard accent"><span class="fcard-icon">🤲</span><h4>极简操作 · 非专业可用</h4><p>3分钟完成样本处理并上机，普通人员即可独立操作。</p></div>
+      </div>
+
+      <div class="sgrid">
+        <div class="scard"><span class="scard-icon">🏥</span><div><h5>基层医疗机构</h5><p>乡镇卫生院、社区诊所，无需核酸实验室，即买即用。</p></div></div>
+        <div class="scard"><span class="scard-icon">🌿</span><div><h5>野外现场检测</h5><p>边境检疫、疫区排查，抗震防湿，手持即可完成。</p></div></div>
+        <div class="scard"><span class="scard-icon">🏠</span><div><h5>居家/自测场景</h5><p>慢病管理、居家隔离等高频自检需求，三步即可完成。</p></div></div>
+        <div class="scard"><span class="scard-icon">🐄</span><div><h5>动物疫病防控</h5><p>非洲猪瘟、禽流感等烈性传染病现场快速布防。</p></div></div>
+      </div>
+    </div>
+
+    <!-- Tab: LAMP -->
+    <div class="product-panel" id="tab-lamp">
+      <!-- Flagship product hero: 探针法 -->
+      <div class="phero">
+        <div>
+          <div class="phero-tag" style="background:rgba(0,194,160,.2);border-color:rgba(0,194,160,.5);color:#059669">🧬 LAMP 等温扩增 · 荧光探针法 · 旗舰产品</div>
+          <h3>支原体 LAMP 荧光探针法检测试剂盒</h3>
+          <p class="phero-sub" style="color:#059669;font-weight:600">WLS-M-FP2 — 细胞治疗产品最终放行检测首选方案</p>
+          <p class="phero-desc">
+            采用<strong>LAMP等温扩增+荧光探针法</strong>，检测下限（LOD）达到<strong class="lod-big">10 CFU/mL</strong>，<strong>达到中国药典（培养法）灵敏度要求</strong>，可直接替代28天培养法用于<strong>细胞治疗工业客户的产品最终放行检测</strong>。提供CT值与标准扩增曲线，支持报告导出与GMP合规审计，显著缩短放行周期。
+          </p>
+          <div class="phero-metrics">
+            <div class="phero-metric lod-metric"><div class="num">10</div><div class="unit">CFU/mL</div><div class="label">检测下限 (LOD)</div></div>
+            <div class="phero-metric"><div class="num">≈25</div><div class="unit">min</div><div class="label">检测时间</div></div>
+            <div class="phero-metric"><div class="num">ChP/EP<br>USP/JP</div><div class="unit">四大药典</div><div class="label">全部支原体种类覆盖</div></div>
+            <div class="phero-metric"><div class="num">✓</div><div class="unit">报告导出</div><div class="label">GMP合规 · 可溯源</div></div>
+          </div>
+        </div>
+        <div class="phero-visual">
+          <img src="images/myco-lamp-probe.jpg" alt="支原体LAMP荧光探针法检测试剂盒 WLS-M-FP2">
+        </div>
+      </div>
+
+      <!-- Cell therapy application highlight -->
+      <div class="app-highlight">
+        <div class="app-highlight-icon">🧫</div>
+        <div>
+          <h4><span class="app-tag">细胞治疗放行</span><span class="app-tag">替代培养法</span><span class="app-tag">药典等效</span>细胞治疗产品最终放行检测的理想替代方案</h4>
+          <p>传统培养法需28天等待，期间细胞治疗产品无法放行，严重影响生产效率与患者用药时效。<strong>WLS-M-FP2荧光探针法</strong>仅需<strong>25分钟</strong>即可获得定量检测结果，灵敏度<strong>10 CFU/mL 达药典培养法标准</strong>，提供完整的CT值与扩增曲线报告，满足GMP合规与审计要求，已成为多家细胞治疗企业的放行检测首选方案。</p>
+        </div>
+      </div>
+
+      <!-- Comparison: 探针法 vs 培养法 -->
+      <h4 style="font-size:18px;font-weight:700;color:var(--primary-dark);margin-bottom:16px">探针法 vs 培养法 — 放行检测方案对比</h4>
+      <table class="spectable">
+        <thead>
+          <tr><th>对比维度</th><th>培养法（药典传统方法）</th><th style="background:linear-gradient(90deg,var(--accent),#059669)">探针法 WLS-M-FP2（本产品）</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>检测时间</td><td>28 天</td><td class="hl" style="color:#059669;font-weight:900;font-size:16px">≈25 分钟</td></tr>
+          <tr><td>检测下限 (LOD)</td><td>10 CFU/mL</td><td class="hl" style="color:#059669;font-weight:900;font-size:16px">10 CFU/mL（等效）</td></tr>
+          <tr><td>结果判读</td><td>肉眼观察培养基变色</td><td class="hl">CT值 + 扩增曲线（数字化）</td></tr>
+          <tr><td>报告输出</td><td>手工记录</td><td class="hl">标准化电子报告，支持导出与审计</td></tr>
+          <tr><td>GMP合规</td><td>✓</td><td class="hl">✓ 完整方法验证文档</td></tr>
+          <tr><td>放行周期影响</td><td style="color:#dc2626;font-weight:700">严重延误（28天等待）</td><td class="hl" style="color:#059669">当天出结果，快速放行</td></tr>
+          <tr><td>适用场景</td><td>传统质控</td><td class="hl" style="color:#059669">细胞治疗/生物制药产品最终放行检</td></tr>
+        </tbody>
+      </table>
+
+      <!-- Secondary products: 显色法 + 沙门氏菌 -->
+      <h4 style="font-size:18px;font-weight:700;color:var(--primary-dark);margin:30px 0 16px">其他 LAMP 产品方案</h4>
+      <div class="kitgrid">
+        <div class="kitcard">
+          <div class="kitcard-img-wrap">
+            <img class="kitcard-img" src="images/myco-lamp-color.jpg" alt="支原体LAMP显色法检测试剂盒">
+          </div>
+          <div class="kitcard-header blue">
+            <h4>支原体 LAMP 显色法检测试剂盒</h4>
+            <div class="model">WLS-M-C1 | 肉眼直读 · 约40min · ≥100 CFU/mL</div>
+          </div>
+          <div class="kitcard-body">
+            <div class="row"><strong>原理</strong> LAMP等温扩增+可视化显色 · 肉眼判读</div>
+            <div class="row"><strong>判读</strong> 黄色=阳性，粉色=阴性 · 无需仪器</div>
+            <div class="row"><strong>时间</strong> 约40min（全程）| 免提取可选</div>
+            <div class="row"><strong>灵敏度</strong> ≥100 CFU/mL</div>
+            <div class="row"><strong>覆盖</strong> 中国药典/EP/USP/JP 全部支原体种类</div>
+            <div class="row"><strong>配套</strong> 微型等温扩增仪（约200元）</div>
+            <div class="kitcard-tags">
+              <span class="kitcard-tag">裸眼判读</span>
+              <span class="kitcard-tag">免提取</span>
+              <span class="kitcard-tag">药典覆盖</span>
+              <span class="kitcard-tag">科研快筛</span>
+            </div>
+          </div>
+        </div>
+        <div class="kitcard">
+          <div class="kitcard-img-wrap">
+            <img class="kitcard-img" src="images/salmonella-lamp.jpg" alt="沙门氏菌LAMP显色法试剂盒">
+          </div>
+          <div class="kitcard-header amber">
+            <h4>沙门氏菌（SAL）快速检测试剂盒</h4>
+            <div class="model">LAMP 显色法 | WLS-S-C1</div>
+          </div>
+          <div class="kitcard-body">
+            <div class="row"><strong>原理</strong> LAMP等温扩增+可视化显色 · 63°C恒温</div>
+            <div class="row"><strong>判读</strong> 裸眼直接判读，黄色=阳性，粉色=阴性</div>
+            <div class="row"><strong>时间</strong> ≤45 min（全程）| 免提取可选</div>
+            <div class="row"><strong>覆盖</strong> 2600+种沙门氏菌血清型</div>
+            <div class="row"><strong>灵敏度</strong> 1000 copies/mL</div>
+            <div class="kitcard-tags">
+              <span class="kitcard-tag">裸眼判读</span>
+              <span class="kitcard-tag">免提取</span>
+              <span class="kitcard-tag">广谱覆盖</span>
+              <span class="kitcard-tag">现场适用</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab: qPCR -->
+    <div class="product-panel" id="tab-qpcr">
+      <div class="kitgrid">
+        <div class="kitcard" style="max-width:700px">
+          <div class="kitcard-img-wrap">
+            <img class="kitcard-img" src="images/myco-qpcr.jpg" alt="支原体qPCR检测试剂盒">
+          </div>
+          <div class="kitcard-header blue">
+            <h4>支原体 qPCR 快速检测试剂盒</h4>
+            <div class="model">荧光定量PCR技术 · 探针法 · UniProbe</div>
+          </div>
+          <div class="kitcard-body">
+            <div class="row"><strong>原理</strong> TaqMan探针法qPCR，荧光定量检测，提供CT值与扩增曲线</div>
+            <div class="row"><strong>覆盖</strong> 覆盖EP/USP/JP/ChP要求的所有支原体种类（涵盖130+种）</div>
+            <div class="row"><strong>灵敏度</strong> 10 CFU/mL（满足药典培养法LOD标准）</div>
+            <div class="row"><strong>特异性</strong> UniProbe独特探针设计，高特异性，无交叉反应</div>
+            <div class="row"><strong>时间</strong> 约2小时（含核酸提取），兼容主流qPCR仪（ABI/Bio-Rad/Roche等）</div>
+            <div class="row"><strong>包装</strong> 50T/盒 | -20°C保存 · 有效期12个月</div>
+            <div class="kitcard-tags">
+              <span class="kitcard-tag">药典合规</span>
+              <span class="kitcard-tag">高灵敏度</span>
+              <span class="kitcard-tag">广谱覆盖</span>
+              <span class="kitcard-tag">兼容主流qPCR仪</span>
+              <span class="kitcard-tag">可溯源报告</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h4 style="font-size:16px;font-weight:700;color:var(--primary-dark);margin:24px 0 14px">qPCR方法学优势</h4>
+      <div class="fgrid">
+        <div class="fcard"><span class="fcard-icon">🧬</span><h4>广谱覆盖 · 一管通用</h4><p>单一反应覆盖EP/USP/JP/ChP全部要求支原体种类（130+种），无需多管分型。</p></div>
+        <div class="fcard accent"><span class="fcard-icon">🎯</span><h4>超高灵敏度</h4><p>检测限10 CFU/mL，与培养法建立等效性，满足药典合规要求。</p></div>
+        <div class="fcard"><span class="fcard-icon">🔒</span><h4>UniProbe探针技术</h4><p>独特探针设计确保高特异性，避免非特异扩增，防止交叉反应。</p></div>
+        <div class="fcard accent"><span class="fcard-icon">📊</span><h4>标准化报告输出</h4><p>提供CT值与标准S型扩增曲线，支持数据导出与合规审计。</p></div>
+      </div>
+    </div>
+
+    <!-- Tab: Extract -->
+    <div class="product-panel" id="tab-extract">
+      <div class="kitgrid">
+        <div class="kitcard">
+          <div class="kitcard-img-wrap">
+            <img class="kitcard-img" src="images/extraction-rapid.png" alt="快速核酸释放剂">
+          </div>
+          <div class="kitcard-header blue">
+            <h4>快速核酸释放剂</h4>
+            <div class="model">WLS-NR-50 | 50 preps · 4°C保存2年</div>
+          </div>
+          <div class="kitcard-body">
+            <div class="row"><strong>原理</strong> 化学裂解快速破坏细胞结构，直接释放核酸，无需离心纯化</div>
+            <div class="row"><strong>操作</strong> 取样本→加裂解液→涡旋10秒→上样（全程约2分钟）</div>
+            <div class="row"><strong>样本</strong> 唾液、拭子、细胞培养液/上清、菌液等液体类样本</div>
+            <div class="row"><strong>下游</strong> PCR · qPCR · LAMP · RPA</div>
+            <div class="kitcard-tags">
+              <span class="kitcard-tag">极速2分钟</span>
+              <span class="kitcard-tag">一步混合</span>
+              <span class="kitcard-tag">低成本</span>
+              <span class="kitcard-tag">高通量</span>
+            </div>
+          </div>
+        </div>
+        <div class="kitcard">
+          <div class="kitcard-img-wrap">
+            <img class="kitcard-img" src="images/extraction-beads.png" alt="磁珠法DNA提取试剂盒（瓶装）">
+          </div>
+          <div class="kitcard-header teal">
+            <h4>磁珠法DNA提取试剂盒（瓶装）</h4>
+            <div class="model">WLS-ME-50 | 50 preps · 4°C保存2年</div>
+          </div>
+          <div class="kitcard-body">
+            <div class="row"><strong>原理</strong> 磁性纳米颗粒固相富集 + 洗涤纯化，获得高纯度DNA</div>
+            <div class="row"><strong>操作</strong> 裂解→磁珠吸附→洗涤→洗脱（约30-60分钟）</div>
+            <div class="row"><strong>样本</strong> 血液（抗凝）、唾液、拭子、菌液、菌沉淀等复杂样本</div>
+            <div class="row"><strong>下游</strong> PCR · qPCR · LAMP · RPA · 芯片分析</div>
+            <div class="kitcard-tags">
+              <span class="kitcard-tag">高纯度</span>
+              <span class="kitcard-tag">血液兼容</span>
+              <span class="kitcard-tag">芯片可用</span>
+              <span class="kitcard-tag">自动化适配</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h4 style="font-size:16px;font-weight:700;color:var(--primary-dark);margin:24px 0 14px">两款提取方案对比</h4>
+      <table class="spectable">
+        <thead><tr><th>对比维度</th><th>快速核酸释放剂</th><th>磁珠法提取试剂盒</th></tr></thead>
+        <tbody>
+          <tr><td>提取原理</td><td>化学裂解直接释放</td><td>磁珠固相富集+洗涤纯化</td></tr>
+          <tr><td>操作时间</td><td class="hl">约2分钟</td><td>约30-60分钟</td></tr>
+          <tr><td>操作难度</td><td class="hl">极简（一步混合）</td><td>中等（多步操作）</td></tr>
+          <tr><td>DNA纯度</td><td>粗提（含蛋白质等杂质）</td><td class="hl">高纯度（A₂₆₀/A₂₈₀达标）</td></tr>
+          <tr><td>血液样本</td><td>不适用</td><td class="hl">支持（含蛋白酶K方案）</td></tr>
+          <tr><td>芯片分析</td><td>不建议</td><td class="hl">可用</td></tr>
+          <tr><td>自动化适配</td><td>不适用</td><td class="hl">支持全自动提取仪</td></tr>
+          <tr><td>适用场景</td><td class="hl">快速筛查·高通量·日常检测</td><td>精准分析·复杂样本·芯片测序</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Contact ===== -->
+<section class="section contact" id="contact">
+  <div class="section-inner">
+    <div class="section-label">Contact Us</div>
+    <h2 class="section-title">联系我们</h2>
+    <p class="section-desc">欢迎随时咨询产品信息、获取报价或申请试用。我们的专业团队将竭诚为您服务。</p>
+    <div class="contact-grid">
+      <div>
+        <div class="contact-info-grid">
+          <div class="contact-card">
+            <span class="contact-card-icon">📍</span>
+            <div class="contact-card-label">公司地址</div>
+            <div class="contact-card-value">宁波市镇海区庄市街道中官西路1277号启迪科技园A栋404</div>
+          </div>
+          <div class="contact-card">
+            <span class="contact-card-icon">📞</span>
+            <div class="contact-card-label">联系电话</div>
+            <div class="contact-card-value">0574-86570597</div>
+          </div>
+          <div class="contact-card">
+            <span class="contact-card-icon">📧</span>
+            <div class="contact-card-label">电子邮箱</div>
+            <div class="contact-card-value">marketing@nbwlsw.com</div>
+          </div>
+          <div class="contact-card">
+            <span class="contact-card-icon">🌐</span>
+            <div class="contact-card-label">官方网站</div>
+            <div class="contact-card-value">www.nbwlsw.com</div>
+          </div>
+        </div>
+        <div style="background:var(--bg);border-radius:var(--radius);padding:24px">
+          <h4 style="font-size:16px;font-weight:700;color:var(--primary-dark);margin-bottom:14px">我们的服务承诺</h4>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+            <div style="font-size:13px;color:var(--text-mid);line-height:1.7">
+              <strong style="color:var(--primary)">🚚 快速发货</strong><br>下单后48小时内出库，全国冷链配送
+            </div>
+            <div style="font-size:13px;color:var(--text-mid);line-height:1.7">
+              <strong style="color:var(--primary)">🎓 技术培训</strong><br>免费说明书及操作SOP，支持远程演示与上门培训
+            </div>
+            <div style="font-size:13px;color:var(--text-mid);line-height:1.7">
+              <strong style="color:var(--primary)">🧩 试用支持</strong><br>提供小规格试用装，首次客户可申请试用评估
+            </div>
+            <div style="font-size:13px;color:var(--text-mid);line-height:1.7">
+              <strong style="color:var(--primary)">🤝 专属服务</strong><br>专属售后工程师跟进，验证方案设计全程支持
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="contact-form">
+        <h4>在线咨询</h4>
+        <div class="form-group">
+          <label>您的姓名 *</label>
+          <input type="text" placeholder="请输入您的姓名">
+        </div>
+        <div class="form-group">
+          <label>单位/公司</label>
+          <input type="text" placeholder="请输入您的单位或公司名称">
+        </div>
+        <div class="form-group">
+          <label>电子邮箱 *</label>
+          <input type="email" placeholder="请输入您的电子邮箱">
+        </div>
+        <div class="form-group">
+          <label>咨询产品</label>
+          <select>
+            <option value="">请选择您感兴趣的产品（可多选）</option>
+            <option>ePOCT 电化学检测平台</option>
+            <option>支原体LAMP检测试剂盒（显色法）</option>
+            <option>支原体LAMP检测试剂盒（荧光探针法）</option>
+            <option>支原体qPCR检测试剂盒</option>
+            <option>沙门氏菌LAMP检测试剂盒</option>
+            <option>快速核酸释放剂</option>
+            <option>磁珠法DNA提取试剂盒</option>
+            <option>其他/综合咨询</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>咨询内容</label>
+          <textarea placeholder="请描述您的需求，例如：应用场景、样本类型、检测通量等"></textarea>
+        </div>
+        <button class="form-submit">提交咨询</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Footer ===== -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="images/logo.png" alt="宁波微流生物科技" style="height:50px;width:auto;margin-bottom:12px;display:block">
+        <h3>宁波微流生物科技</h3>
+        <p>Ningbo MicroFluidics Biotech Co., Ltd.<br><br>专注LAMP/qPCR/ePOCT核酸即时检测技术，为全球客户提供从样本到结果的一站式分子诊断解决方案。</p>
+      </div>
+      <div class="footer-col">
+        <h4>快速导航</h4>
+        <ul>
+          <li><a href="#home">首页</a></li>
+          <li><a href="#about">关于我们</a></li>
+          <li><a href="#products">产品服务</a></li>
+          <li><a href="#contact">联系我们</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>产品系列</h4>
+        <ul>
+          <li><a href="#products">ePOCT 电化学平台</a></li>
+          <li><a href="#products">LAMP 等温扩增</a></li>
+          <li><a href="#products">qPCR 荧光定量</a></li>
+          <li><a href="#products">核酸提取方案</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>联系方式</h4>
+        <ul>
+          <li><a>📍 宁波镇海启迪科技园A404</a></li>
+          <li><a>📞 0574-86570597</a></li>
+          <li><a>📧 marketing@nbwlsw.com</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 宁波微流生物科技有限公司 | 浙ICP备XXXXXXXX号</span>
+      <span>仅供科研使用 For Research Use Only</span>
+    </div>
+  </div>
+</footer>
+
+<!-- Scroll to top -->
+<button class="scroll-top" id="scrollTop" aria-label="返回顶部">↑</button>
+
+<script>
+// Navbar scroll effect
+const navbar = document.getElementById('navbar');
+const scrollTop = document.getElementById('scrollTop');
+window.addEventListener('scroll',()=>{
+  navbar.classList.toggle('scrolled',window.scrollY>50);
+  scrollTop.classList.toggle('visible',window.scrollY>400);
+});
+
+// Scroll to top
+scrollTop.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+
+// Mobile menu
+const menuToggle = document.getElementById('menuToggle');
+const navLinks = document.getElementById('navLinks');
+menuToggle.addEventListener('click',()=>navLinks.classList.toggle('open'));
+navLinks.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>navLinks.classList.remove('open')));
+
+// Product tabs
+const tabs = document.querySelectorAll('.product-tab');
+const panels = document.querySelectorAll('.product-panel');
+tabs.forEach(tab=>{
+  tab.addEventListener('click',()=>{
+    tabs.forEach(t=>t.classList.remove('active'));
+    panels.forEach(p=>p.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById(tab.dataset.tab).classList.add('active');
+  });
+});
+
+// Smooth scroll for nav links
+document.querySelectorAll('a[href^="#"]').forEach(anchor=>{
+  anchor.addEventListener('click',function(e){
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    if(target) target.scrollIntoView({behavior:'smooth',block:'start'});
+  });
+});
+</script>
+</body>
+</html>
