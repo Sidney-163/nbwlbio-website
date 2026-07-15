@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!-- saved from url=(0070)file:///D:/Desktop/%E5%AE%98%E7%BD%91%E4%BA%8C/%E7%B4%A0%E6%9D%90.html -->
 <html lang="zh-CN"><head>
-<!-- form-v3-ajax: AJAX + FormData, target=_blank fallback, 25s timeout, access_key 081aa2b9-37c1-436d-9896-a57dea2528b1 (deployed 2026-07-15 15:45) --><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!-- form-v4-ajax-toast: AJAX + FormData, target=_blank fallback, 25s timeout, access_key 081aa2b9-37c1-436d-9896-a57dea2528b1 (deployed 2026-07-15 15:45) --><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="宁波微流生物科技有限公司 — 专注LAMP/qPCR/ePOCT核酸即时检测技术，提供手持式核酸检测仪、支原体/沙门氏菌快速检测试剂盒、核酸提取整体解决方案。">
@@ -1150,7 +1150,7 @@ body{
           </div>
         </div>
 
-        <!-- Tier 3: Online consultation form (form-v3-ajax) -->
+        <!-- Tier 3: Online consultation form (form-v4-ajax-toast) -->
         <div class="contact-form-wrap">
           <form class="contact-form" id="consultForm" action="https://api.web3forms.com/submit" method="POST" target="_blank">
             <h4>在线咨询</h4>
@@ -1188,10 +1188,12 @@ body{
               <label>咨询内容</label>
               <textarea name="message" id="f-msg" placeholder="请描述您的需求，例如：应用场景、样本类型、检测通量等"></textarea>
             </div>
-            <div id="form-status" style="display:none;padding:12px;border-radius:4px;margin-bottom:12px;font-size:14px;"></div>
+            <div id="form-status" style="display:none;padding:14px 16px;border-radius:6px;margin-bottom:14px;font-size:15px;line-height:1.5;"></div>
             <button type="submit" class="form-submit" id="f-submit">提交咨询</button>
           </form>
         </div>
+
+        <div id="global-toast" style="display:none;position:fixed;top:24px;right:24px;z-index:99999;max-width:380px;padding:16px 20px;border-radius:10px;box-shadow:0 8px 28px rgba(0,0,0,0.18);font-size:15px;line-height:1.5;background:#fff;border-left:5px solid #16a34a;color:#15803d;opacity:0;transform:translateX(20px);transition:opacity 0.3s, transform 0.3s;"></div>
 
         <script>
         (function(){
@@ -1199,6 +1201,34 @@ body{
           if(!form) { console.warn('consultForm not found'); return; }
           var btn = document.getElementById('f-submit');
           var status = document.getElementById('form-status');
+          var toast = document.getElementById('global-toast');
+
+          function showToast(msg, kind) {
+            if (!toast) return;
+            toast.textContent = msg;
+            toast.style.display = 'block';
+            toast.style.borderLeftColor = (kind === 'error') ? '#dc2626' : (kind === 'loading' ? '#2563eb' : '#16a34a');
+            toast.style.color = (kind === 'error') ? '#b91c1c' : (kind === 'loading' ? '#1d4ed8' : '#15803d');
+            toast.style.background = (kind === 'error') ? '#fef2f2' : (kind === 'loading' ? '#eff6ff' : '#f0fdf4');
+            requestAnimationFrame(function(){
+              toast.style.opacity = '1';
+              toast.style.transform = 'translateX(0)';
+            });
+            if (kind !== 'loading') {
+              setTimeout(function(){
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateX(20px)';
+                setTimeout(function(){ toast.style.display = 'none'; }, 350);
+              }, 4500);
+            }
+          }
+
+          function hideToast() {
+            if (!toast) return;
+            toast.style.opacity = '0';
+            toast.style.transform = 'translateX(20px)';
+            setTimeout(function(){ toast.style.display = 'none'; }, 350);
+          }
 
           function showStatus(msg, fg, bg, border) {
             status.textContent = msg;
@@ -1215,19 +1245,21 @@ body{
             var email = document.getElementById('f-email').value.trim();
             if(!name || !email){
               showStatus('请填写姓名和邮箱后再提交。', '#dc2626', '#fef2f2', '#fca5a5');
+              showToast('❌ 请填写姓名和邮箱后再提交', 'error');
               return;
             }
 
             btn.disabled = true;
             btn.textContent = '提交中...';
             showStatus('正在发送，请稍候…', '#374151', '#f3f4f6', '#d1d5db');
+            showToast('📤 正在发送您的咨询…', 'loading');
 
-            // Build FormData (multipart/form-data — Web3Forms preferred)
             var formData = new FormData(form);
 
-            // 25s timeout so we never get stuck silently
             var controller = new AbortController();
             var timeoutId = setTimeout(function(){ controller.abort(); }, 25000);
+
+            var startTime = Date.now();
 
             fetch('https://api.web3forms.com/submit', {
               method: 'POST',
@@ -1237,25 +1269,40 @@ body{
             .then(function(r){ return r.json().catch(function(){ return {success:false, message:'响应解析失败 (HTTP ' + r.status + ')'}; }); })
             .then(function(data){
               clearTimeout(timeoutId);
-              btn.disabled = false;
-              btn.textContent = '提交咨询';
-              if(data.success){
-                form.style.display = 'none';
-                showStatus('✅ 提交成功！我们会尽快通过邮件与您联系。', '#16a34a', '#f0fdf4', '#86efac');
-                setTimeout(function(){ try { status.scrollIntoView({behavior:'smooth', block:'center'}); } catch(e){} }, 100);
-              } else {
-                showStatus('提交失败：' + (data.message || '未知错误，请稍后重试或邮件至 marketing@nbwlsw.com'), '#dc2626', '#fef2f2', '#fca5a5');
-              }
+              // Ensure loading state is visible for at least 800ms (UX)
+              var elapsed = Date.now() - startTime;
+              var wait = Math.max(0, 800 - elapsed);
+              setTimeout(function(){
+                btn.disabled = false;
+                btn.textContent = '提交咨询';
+                if(data.success){
+                  form.style.display = 'none';
+                  showStatus('✅ 提交成功！我们会尽快通过邮件与您联系。', '#16a34a', '#f0fdf4', '#86efac');
+                  hideToast();
+                  showToast('✅ 提交成功！邮件已发送到 marketing@nbwlsw.com，我们会尽快与您联系。', 'success');
+                  try { window.scrollTo({top: 0, behavior: 'smooth'}); } catch(e){ window.scrollTo(0, 0); }
+                } else {
+                  showStatus('提交失败：' + (data.message || '未知错误，请稍后重试或邮件至 marketing@nbwlsw.com'), '#dc2626', '#fef2f2', '#fca5a5');
+                  hideToast();
+                  showToast('❌ 提交失败：' + (data.message || '未知错误'), 'error');
+                }
+              }, wait);
             })
             .catch(function(err){
               clearTimeout(timeoutId);
-              btn.disabled = false;
-              btn.textContent = '提交咨询';
-              var msg = (err && err.name === 'AbortError') ? '请求超时（25秒），请检查网络后重试。' : ('网络错误：' + (err.message || err) + '。请稍后重试或直接邮件至 marketing@nbwlsw.com');
-              showStatus(msg, '#dc2626', '#fef2f2', '#fca5a5');
+              var elapsed = Date.now() - startTime;
+              var wait = Math.max(0, 800 - elapsed);
+              setTimeout(function(){
+                btn.disabled = false;
+                btn.textContent = '提交咨询';
+                var msg = (err && err.name === 'AbortError') ? '请求超时（25秒），请检查网络后重试。' : ('网络错误：' + (err.message || err) + '。请稍后重试或直接邮件至 marketing@nbwlsw.com');
+                showStatus(msg, '#dc2626', '#fef2f2', '#fca5a5');
+                hideToast();
+                showToast('❌ ' + msg, 'error');
+              }, wait);
             });
           });
-          console.log('consultForm v3 (AJAX + FormData + 25s timeout) loaded');
+          console.log('consultForm v4 (AJAX + FormData + 25s timeout + global toast + min-800ms loading) loaded');
         })();
         </script>
         <style>
