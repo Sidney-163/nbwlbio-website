@@ -1188,28 +1188,6 @@ body{
         </div>
         <button type="submit" class="form-submit">提交咨询</button>
       </form>
-
-        <script>
-        (function(){
-          var f = document.getElementById('consultForm');
-          if(!f) return;
-          f.addEventListener('submit', function(e){
-            e.preventDefault();
-            var btn = f.querySelector('.form-submit');
-            var orig = btn.textContent;
-            btn.disabled = true; btn.textContent = '提交中...';
-            var data = new FormData(f);
-            fetch('https://formsubmit.co/ajax/marketing@nbwlsw.com', {
-              method:'POST', body: data, headers:{'Accept':'application/json'}
-            }).then(function(r){ return r.json(); }).then(function(){
-              f.innerHTML = '<div style="padding:24px;text-align:center;color:#16a34a;font-size:16px;">✅ 提交成功！我们会尽快通过邮件与您联系。</div>';
-            }).catch(function(){
-              btn.disabled = false; btn.textContent = orig;
-              f.submit();
-            });
-          });
-        })();
-        </script>
         </div>
 
         <style>
