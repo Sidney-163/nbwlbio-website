@@ -1151,27 +1151,23 @@ body{
 
         <!-- Tier 3: Online consultation form -->
         <div class="contact-form-wrap">
-          <form class="contact-form" action="https://api.web3forms.com/submit" method="POST" id="consultForm">
-          <input type="hidden" name="access_key" value="296856">
-          <input type="hidden" name="subject" value="【宁波微流官网】新的咨询留言">
-          <input type="hidden" name="redirect" value="https://www.nbwlbio.com/#contact">
-          <input type="hidden" name="from_name" value="宁波微流官网">
+          <div class="contact-form" id="consultFormWrap">
         <h4>在线咨询</h4>
         <div class="form-group">
           <label>您的姓名 *</label>
-          <input type="text" name="姓名" placeholder="请输入您的姓名" required>
+          <input type="text" name="姓名" id="f-name" placeholder="请输入您的姓名" required>
         </div>
         <div class="form-group">
           <label>单位/公司</label>
-          <input type="text" name="单位公司" placeholder="请输入您的单位或公司名称">
+          <input type="text" name="单位公司" id="f-company" placeholder="请输入您的单位或公司名称">
         </div>
         <div class="form-group">
           <label>电子邮箱 *</label>
-          <input type="email" name="email" placeholder="请输入您的电子邮箱" required>
+          <input type="email" name="email" id="f-email" placeholder="请输入您的电子邮箱" required>
         </div>
         <div class="form-group">
           <label>咨询产品</label>
-          <select name="咨询产品">
+          <select name="咨询产品" id="f-product">
             <option value="">请选择您感兴趣的产品（可多选）</option>
             <option>ePOCT 电化学检测平台</option>
             <option>支原体LAMP检测试剂盒（显色法）</option>
@@ -1185,12 +1181,65 @@ body{
         </div>
         <div class="form-group">
           <label>咨询内容</label>
-          <textarea name="咨询内容" placeholder="请描述您的需求，例如：应用场景、样本类型、检测通量等"></textarea>
+          <textarea name="咨询内容" id="f-msg" placeholder="请描述您的需求，例如：应用场景、样本类型、检测通量等"></textarea>
         </div>
-        <button type="submit" class="form-submit">提交咨询</button>
-      </form>
+        <div id="form-status" style="display:none;padding:12px;border-radius:4px;margin-bottom:12px;font-size:14px;"></div>
+        <button type="button" class="form-submit" id="f-submit">提交咨询</button>
+      </div>
         </div>
 
+        <script>
+        (function(){
+          var wrap = document.getElementById('consultFormWrap');
+          var btn = document.getElementById('f-submit');
+          var status = document.getElementById('form-status');
+          if(!wrap || !btn) return;
+          btn.addEventListener('click', function(){
+            var name = document.getElementById('f-name').value.trim();
+            var email = document.getElementById('f-email').value.trim();
+            if(!name || !email) {
+              showStatus('请填写姓名和邮箱后再提交。','#dc2626'); return;
+            }
+            btn.disabled = true; btn.textContent = '提交中...';
+            showStatus('正在发送...','#374151');
+            var payload = {
+              access_key: '296856',
+              subject: '【宁波微流官网】新的咨询留言',
+              name: name,
+              email: email,
+              message: [
+                '姓名：' + name,
+                '单位公司：' + (document.getElementById('f-company').value.trim() || '（未填写）'),
+                '咨询产品：' + (document.getElementById('f-product').value || '（未选择）'),
+                '咨询内容：' + (document.getElementById('f-msg').value.trim() || '（未填写）')
+              ].join('\n')
+            };
+            fetch('https://api.web3forms.com/submit', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+              body: JSON.stringify(payload)
+            }).then(function(r){ return r.json().catch(function(){ return {text: r.status+' '+r.statusText}; }); })
+            .then(function(data){
+              btn.disabled = false; btn.textContent = '提交咨询';
+              if(data.success) {
+                wrap.innerHTML = '<div style="padding:24px;text-align:center;color:#16a34a;font-size:16px;">✅ 提交成功！我们会尽快通过邮件与您联系。</div>';
+              } else {
+                showStatus('提交失败：' + (data.message || JSON.stringify(data)), '#dc2626');
+              }
+            }).catch(function(err){
+              btn.disabled = false; btn.textContent = '提交咨询';
+              showStatus('网络错误：' + err.message + '，请稍后重试。', '#dc2626');
+            });
+          });
+          function showStatus(msg, color) {
+            status.textContent = msg;
+            status.style.display = 'block';
+            status.style.background = '#fef2f2';
+            status.style.color = color;
+            status.style.border = '1px solid #fca5a5';
+          }
+        })();
+        </script>
         <style>
         /* Override contact-info-grid to 4 columns */
         .contact-info-grid{
