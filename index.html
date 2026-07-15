@@ -1156,23 +1156,22 @@ body{
             <input type="hidden" name="access_key" value="081aa2b9-37c1-436d-9896-a57dea2528b1">
             <input type="hidden" name="subject" value="【宁波微流官网】新的咨询留言">
             <input type="hidden" name="from_name" value="宁波微流生物科技官网">
-            <input type="hidden" name="redirect" value="https://www.nbwlbio.com/?submitted=ok#contact">
             <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
             <div class="form-group">
               <label>您的姓名 *</label>
-              <input type="text" name="name" placeholder="请输入您的姓名" required>
+              <input type="text" name="name" id="f-name" placeholder="请输入您的姓名" required>
             </div>
             <div class="form-group">
               <label>单位/公司</label>
-              <input type="text" name="company" placeholder="请输入您的单位或公司名称">
+              <input type="text" name="company" id="f-company" placeholder="请输入您的单位或公司名称">
             </div>
             <div class="form-group">
               <label>电子邮箱 *</label>
-              <input type="email" name="email" placeholder="请输入您的电子邮箱" required>
+              <input type="email" name="email" id="f-email" placeholder="请输入您的电子邮箱" required>
             </div>
             <div class="form-group">
               <label>咨询产品</label>
-              <select name="product">
+              <select name="product" id="f-product">
                 <option value="">请选择您感兴趣的产品（可多选）</option>
                 <option>ePOCT 电化学检测平台</option>
                 <option>支原体LAMP检测试剂盒（显色法）</option>
@@ -1186,10 +1185,10 @@ body{
             </div>
             <div class="form-group">
               <label>咨询内容</label>
-              <textarea name="message" placeholder="请描述您的需求，例如：应用场景、样本类型、检测通量等"></textarea>
+              <textarea name="message" id="f-msg" placeholder="请描述您的需求，例如：应用场景、样本类型、检测通量等"></textarea>
             </div>
             <div id="form-status" style="display:none;padding:12px;border-radius:4px;margin-bottom:12px;font-size:14px;"></div>
-            <button type="submit" class="form-submit">提交咨询</button>
+            <button type="submit" class="form-submit" id="f-submit">提交咨询</button>
           </form>
         </div>
 
@@ -1197,22 +1196,64 @@ body{
         (function(){
           var form = document.getElementById('consultForm');
           if(!form) return;
-          // Show success message if redirected back with ?submitted=ok
-          try {
-            var p = new URLSearchParams(window.location.search);
-            if(p.get('submitted') === 'ok'){
-              var s = document.getElementById('form-status');
-              if(s){
-                s.textContent = '✅ 提交成功！我们会尽快通过邮件与您联系。';
-                s.style.display='block';
-                s.style.background='#f0fdf4';
-                s.style.color='#16a34a';
-                s.style.border='1px solid #86efac';
-                form.style.display='none';
-                setTimeout(function(){ s.scrollIntoView({behavior:'smooth', block:'center'}); }, 200);
-              }
+          var btn = document.getElementById('f-submit');
+          var status = document.getElementById('form-status');
+
+          function showStatus(msg, fg, bg, border) {
+            status.textContent = msg;
+            status.style.display = 'block';
+            status.style.color = fg || '#dc2626';
+            status.style.background = bg || '#fef2f2';
+            status.style.border = '1px solid ' + (border || '#fca5a5');
+          }
+
+          form.addEventListener('submit', function(e){
+            e.preventDefault();
+
+            var name = document.getElementById('f-name').value.trim();
+            var email = document.getElementById('f-email').value.trim();
+            if(!name || !email){
+              showStatus('请填写姓名和邮箱后再提交。', '#dc2626', '#fef2f2', '#fca5a5');
+              return;
             }
-          } catch(e){}
+
+            btn.disabled = true;
+            btn.textContent = '提交中...';
+            showStatus('正在发送，请稍候…', '#374151', '#f3f4f6', '#d1d5db');
+
+            // Build FormData (multipart/form-data — Web3Forms preferred)
+            var formData = new FormData(form);
+
+            // Add a 25s timeout in case Web3Forms hangs
+            var controller = new AbortController();
+            var timeoutId = setTimeout(function(){ controller.abort(); }, 25000);
+
+            fetch('https://api.web3forms.com/submit', {
+              method: 'POST',
+              body: formData,
+              signal: controller.signal
+            })
+            .then(function(r){ return r.json().catch(function(){ return {success:false, message:'响应解析失败 (HTTP ' + r.status + ')'}; }); })
+            .then(function(data){
+              clearTimeout(timeoutId);
+              btn.disabled = false;
+              btn.textContent = '提交咨询';
+              if(data.success){
+                form.style.display = 'none';
+                showStatus('✅ 提交成功！我们会尽快通过邮件与您联系。', '#16a34a', '#f0fdf4', '#86efac');
+                setTimeout(function(){ try { status.scrollIntoView({behavior:'smooth', block:'center'}); } catch(e){} }, 100);
+              } else {
+                showStatus('提交失败：' + (data.message || '未知错误，请稍后重试或邮件至 marketing@nbwlsw.com'), '#dc2626', '#fef2f2', '#fca5a5');
+              }
+            })
+            .catch(function(err){
+              clearTimeout(timeoutId);
+              btn.disabled = false;
+              btn.textContent = '提交咨询';
+              var msg = (err && err.name === 'AbortError') ? '请求超时（25秒），请检查网络后重试。' : ('网络错误：' + (err.message || err) + '。请稍后重试或直接邮件至 marketing@nbwlsw.com');
+              showStatus(msg, '#dc2626', '#fef2f2', '#fca5a5');
+            });
+          });
         })();
         </script>
         <style>
