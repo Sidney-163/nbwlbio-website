@@ -1151,10 +1151,11 @@ body{
 
         <!-- Tier 3: Online consultation form -->
         <div class="contact-form-wrap">
-          <form class="contact-form" action="https://formsubmit.co/marketing@nbwlsw.com" method="POST" id="consultForm">
-          <input type="hidden" name="_subject" value="【宁波微流官网】新的咨询留言">
-          <input type="hidden" name="_captcha" value="false">
-          <input type="hidden" name="_next" value="https://www.nbwlbio.com/#contact">
+          <form class="contact-form" action="https://api.web3forms.com/submit" method="POST" id="consultForm">
+          <input type="hidden" name="access_key" value="296856">
+          <input type="hidden" name="subject" value="【宁波微流官网】新的咨询留言">
+          <input type="hidden" name="redirect" value="https://www.nbwlbio.com/#contact">
+          <input type="hidden" name="from_name" value="宁波微流官网">
         <h4>在线咨询</h4>
         <div class="form-group">
           <label>您的姓名 *</label>
@@ -1166,7 +1167,7 @@ body{
         </div>
         <div class="form-group">
           <label>电子邮箱 *</label>
-          <input type="email" name="电子邮箱" placeholder="请输入您的电子邮箱" required>
+          <input type="email" name="email" placeholder="请输入您的电子邮箱" required>
         </div>
         <div class="form-group">
           <label>咨询产品</label>
