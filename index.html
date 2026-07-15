@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <!-- saved from url=(0070)file:///D:/Desktop/%E5%AE%98%E7%BD%91%E4%BA%8C/%E7%B4%A0%E6%9D%90.html -->
-<html lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<html lang="zh-CN"><head>
+<!-- form-v3-ajax: AJAX + FormData, target=_blank fallback, 25s timeout, access_key 081aa2b9-37c1-436d-9896-a57dea2528b1 (deployed 2026-07-15 15:45) --><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="宁波微流生物科技有限公司 — 专注LAMP/qPCR/ePOCT核酸即时检测技术，提供手持式核酸检测仪、支原体/沙门氏菌快速检测试剂盒、核酸提取整体解决方案。">
@@ -1149,9 +1150,9 @@ body{
           </div>
         </div>
 
-        <!-- Tier 3: Online consultation form -->
+        <!-- Tier 3: Online consultation form (form-v3-ajax) -->
         <div class="contact-form-wrap">
-          <form class="contact-form" id="consultForm" action="https://api.web3forms.com/submit" method="POST">
+          <form class="contact-form" id="consultForm" action="https://api.web3forms.com/submit" method="POST" target="_blank">
             <h4>在线咨询</h4>
             <input type="hidden" name="access_key" value="081aa2b9-37c1-436d-9896-a57dea2528b1">
             <input type="hidden" name="subject" value="【宁波微流官网】新的咨询留言">
@@ -1195,7 +1196,7 @@ body{
         <script>
         (function(){
           var form = document.getElementById('consultForm');
-          if(!form) return;
+          if(!form) { console.warn('consultForm not found'); return; }
           var btn = document.getElementById('f-submit');
           var status = document.getElementById('form-status');
 
@@ -1224,7 +1225,7 @@ body{
             // Build FormData (multipart/form-data — Web3Forms preferred)
             var formData = new FormData(form);
 
-            // Add a 25s timeout in case Web3Forms hangs
+            // 25s timeout so we never get stuck silently
             var controller = new AbortController();
             var timeoutId = setTimeout(function(){ controller.abort(); }, 25000);
 
@@ -1254,6 +1255,7 @@ body{
               showStatus(msg, '#dc2626', '#fef2f2', '#fca5a5');
             });
           });
+          console.log('consultForm v3 (AJAX + FormData + 25s timeout) loaded');
         })();
         </script>
         <style>
